@@ -24,13 +24,13 @@ public class MeasureServiceImpl extends UnicastRemoteObject implements MeasureSe
     @Override
     public int registerMeasure(Measure measureObj) throws RemoteException {
         try {
-            // Validate input
+            
             if (measureObj == null) {
                 System.err.println("ERROR: Measure object is null");
                 return 0;
             }
             
-            // Validate hazard
+           
             if (measureObj.getHazard() == null) {
                 System.err.println("ERROR: No hazard associated with measure");
                 return 0;
@@ -42,7 +42,7 @@ public class MeasureServiceImpl extends UnicastRemoteObject implements MeasureSe
                 return 0;
             }
             
-            // Additional validation - check if hazard exists
+           
             MeasureDao measureDao = new MeasureDao();
             if (!measureDao.hazardExists(hazardId)) {
                 System.err.println("ERROR: Hazard with ID " + hazardId + " does not exist");
@@ -51,7 +51,7 @@ public class MeasureServiceImpl extends UnicastRemoteObject implements MeasureSe
                 return 0;
             }
             
-            // Validate required fields
+          
             if (measureObj.getMeasureType() == null || measureObj.getMeasureType().trim().isEmpty()) {
                 System.err.println("ERROR: Measure type is required");
                 return 0;
@@ -94,6 +94,18 @@ public class MeasureServiceImpl extends UnicastRemoteObject implements MeasureSe
           ex.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public int deleteMeasure(Measure measureObj) throws RemoteException {
+        try{
+            MeasureDao measureDao = new MeasureDao();
+            return measureDao.deleteMeasure(measureObj);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        
+        }
+        return 0;
     }
     
 }

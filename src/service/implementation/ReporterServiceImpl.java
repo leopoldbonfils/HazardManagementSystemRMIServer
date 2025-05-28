@@ -57,5 +57,18 @@ public class ReporterServiceImpl extends UnicastRemoteObject implements Reporter
         }
         return null;
     }
+
+    @Override
+    public int deleteReporter(Reporter reporterObj) throws RemoteException {
+        try{
+            ReporterDao reporterDao = new ReporterDao();
+            return reporterDao.deleteReporter(reporterObj);
+            
+        }catch (Exception ex){
+            ex.printStackTrace();
+        
+        }
+        return 0;
+    }
     
 }

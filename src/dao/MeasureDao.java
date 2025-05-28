@@ -25,11 +25,11 @@ public class MeasureDao {
             ss = HibernateUtil.getSessionFactory().openSession();
             tr = ss.beginTransaction();
             
-            // Debug: Print the hazard information
+            
             if (measureObj.getHazard() != null) {
                 System.out.println("Attempting to save measure with hazard_id: " + measureObj.getHazard().getHazardId());
                 
-                // Verify the hazard exists in the database
+                
                 Hazard existingHazard = (Hazard) ss.get(Hazard.class, measureObj.getHazard().getHazardId());
                 if (existingHazard == null) {
                     System.err.println("ERROR: Hazard with ID " + measureObj.getHazard().getHazardId() + " does not exist in database!");
@@ -37,7 +37,7 @@ public class MeasureDao {
                     return 0;
                 }
                 
-                // Use the managed hazard object from the current session
+               
                 measureObj.setHazard(existingHazard);
                 System.out.println("Hazard verified and set: " + existingHazard.getHazardId());
             } else {
@@ -71,7 +71,7 @@ public class MeasureDao {
         }
     }
     
-    // Helper method to verify hazard exists
+    
     public boolean hazardExists(int hazardId) {
         Session ss = null;
         try {
@@ -88,7 +88,7 @@ public class MeasureDao {
         }
     }
     
-    // Method to get all hazards for debugging
+   
     public void printAllHazards() {
         Session ss = null;
         try {
@@ -137,5 +137,20 @@ public class MeasureDao {
             e.printStackTrace();
         }
         return measure;
+    }
+     
+    public int deleteMeasure(Measure measureObj){
+        try{
+            Session ss = HibernateUtil.getSessionFactory().openSession();
+            Transaction tr = (Transaction) ss.beginTransaction();
+            ss.delete(measureObj);
+            tr.commit();
+            ss.close();
+            return 1;
+        
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return 0;
     }
 }

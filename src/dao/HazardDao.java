@@ -30,7 +30,7 @@ public class HazardDao {
     
     }
     
-     public int updateHazard(Hazard hazardObj){
+    public int updateHazard(Hazard hazardObj){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
             Transaction tr = (Transaction) ss.beginTransaction();
@@ -46,7 +46,7 @@ public class HazardDao {
     
     }
      
-     public Hazard search(int hazardId) {
+    public Hazard search(int hazardId) {
         Hazard hazard = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -57,5 +57,19 @@ public class HazardDao {
         }
         return hazard;
     }
-    
+     
+    public int deleteHazard(Hazard hazardObj){
+        try{
+            Session ss = HibernateUtil.getSessionFactory().openSession();
+            Transaction tr = (Transaction) ss.beginTransaction();
+            ss.delete(hazardObj);
+            tr.commit();
+            ss.close();
+            return 1;
+        
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return 0;
+    }   
 }

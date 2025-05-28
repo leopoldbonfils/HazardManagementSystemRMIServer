@@ -17,6 +17,7 @@ public interface MeasureService extends Remote{
     int registerMeasure(Measure measureObj) throws RemoteException;
     int updateMeasure(Measure measureObj) throws RemoteException;
     Measure search(int measureId) throws RemoteException;
+    int deleteMeasure(Measure measureObj) throws RemoteException;
      
     
     

@@ -18,5 +18,6 @@ public interface ReporterService extends Remote{
     int registerReporter(Reporter reporterObj) throws RemoteException;
     int updateReporter(Reporter reporterObj) throws RemoteException;
     Reporter search(int reporterId) throws RemoteException;
+    int deleteReporter(Reporter reporterObj) throws RemoteException;
     
 }

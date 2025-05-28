@@ -56,6 +56,17 @@ public class LocationServiceImpl extends UnicastRemoteObject implements Location
         return null;
         
     }
+
+    @Override
+    public int deleteLocation(Location locationObj) throws RemoteException {
+        try{
+            LocationDao locationDao = new LocationDao();
+            return locationDao.deleteLocation(locationObj);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return 0;
+    }
     
     
 }

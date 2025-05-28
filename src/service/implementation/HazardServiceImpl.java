@@ -61,5 +61,17 @@ public class HazardServiceImpl extends UnicastRemoteObject implements HazardServ
         return null;
         
     }
+
+    @Override
+    public int deleteHazard(Hazard hazardObj) throws RemoteException {
+        try{
+            HazardDao hazardDao = new HazardDao();
+            return hazardDao.deleteHazard(hazardObj);
+            
+        }catch(Exception ex){
+            ex.printStackTrace();   
+        }
+        return 0;
+    }
     
 }

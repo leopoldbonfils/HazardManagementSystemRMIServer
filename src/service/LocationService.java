@@ -17,5 +17,6 @@ public interface LocationService extends Remote{
     int registerLocation(Location locationObj) throws RemoteException;
     int updateLocation(Location locationObj) throws RemoteException;
     Location search(int locationId) throws RemoteException;
+    int deleteLocation(Location locationObj) throws RemoteException;
     
 }

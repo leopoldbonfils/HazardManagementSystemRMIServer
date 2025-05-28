@@ -14,7 +14,7 @@ import org.hibernate.Transaction;
  * @author HP
  */
 public class ReporterDao {
-     public int registerReporter(Reporter reporterObj){
+    public int registerReporter(Reporter reporterObj){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
             Transaction tr = (Transaction) ss.beginTransaction();
@@ -29,7 +29,7 @@ public class ReporterDao {
         return 0;
     
     }
-      public int updateReporter(Reporter reporterObj){
+    public int updateReporter(Reporter reporterObj){
         try{
             Session ss = HibernateUtil.getSessionFactory().openSession();
             Transaction tr = (Transaction) ss.beginTransaction();
@@ -45,7 +45,7 @@ public class ReporterDao {
     
     }
      
-     public Reporter search(int reporterId) {
+    public Reporter search(int reporterId) {
         Reporter reporter = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -57,4 +57,19 @@ public class ReporterDao {
         return reporter;
     }
     
+    public int deleteReporter(Reporter reporterObj){
+        try{
+            Session ss = HibernateUtil.getSessionFactory().openSession();
+            Transaction tr = (Transaction) ss.beginTransaction();
+            ss.delete(reporterObj);
+            tr.commit();
+            ss.close();
+            return 1;
+        
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return 0;
+    
+    }  
 }
