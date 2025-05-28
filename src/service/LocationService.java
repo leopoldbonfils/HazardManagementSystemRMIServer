@@ -7,6 +7,7 @@ package service;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 import modal.Location;
 
 /**
@@ -18,5 +19,6 @@ public interface LocationService extends Remote{
     int updateLocation(Location locationObj) throws RemoteException;
     Location search(int locationId) throws RemoteException;
     int deleteLocation(Location locationObj) throws RemoteException;
+    List<Location> findAllLocations() throws RemoteException;
     
 }

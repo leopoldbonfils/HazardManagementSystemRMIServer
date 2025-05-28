@@ -7,6 +7,7 @@ package service;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 import modal.Measure;
 
 /**
@@ -18,6 +19,7 @@ public interface MeasureService extends Remote{
     int updateMeasure(Measure measureObj) throws RemoteException;
     Measure search(int measureId) throws RemoteException;
     int deleteMeasure(Measure measureObj) throws RemoteException;
+    List<Measure> findAllMeasures() throws RemoteException;
      
     
     

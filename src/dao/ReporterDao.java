@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.util.List;
 import modal.Reporter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -72,4 +73,16 @@ public class ReporterDao {
         return 0;
     
     }  
+    
+     public List<Reporter> findAllReporters() {
+      try{
+          Session ss = HibernateUtil.getSessionFactory().openSession();
+          List<Reporter>reporter = ss.createQuery("SELECT rep FROM Reporter rep").list();
+          ss.close();
+          return reporter;
+      }catch(Exception ex){
+          ex.printStackTrace();
+      }
+      return null;
+    }
 }

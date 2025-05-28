@@ -8,6 +8,7 @@ package service.implementation;
 import dao.MeasureDao;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 import modal.Measure;
 import service.MeasureService;
 
@@ -106,6 +107,18 @@ public class MeasureServiceImpl extends UnicastRemoteObject implements MeasureSe
         
         }
         return 0;
+    }
+
+    @Override
+    public List<Measure> findAllMeasures() throws RemoteException {
+        try{
+            MeasureDao measureDao = new MeasureDao();
+            return measureDao.findAllMeasures();
+            
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return null;
     }
     
 }

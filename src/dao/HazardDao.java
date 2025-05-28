@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.util.List;
 import modal.Hazard;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -72,4 +73,16 @@ public class HazardDao {
         }
         return 0;
     }   
+    
+     public List<Hazard> findAllHazards() {
+      try{
+          Session ss = HibernateUtil.getSessionFactory().openSession();
+          List<Hazard>hazard = ss.createQuery("SELECT haz FROM Hazard haz").list();
+          ss.close();
+          return hazard;
+      }catch(Exception ex){
+          ex.printStackTrace();
+      }
+      return null;
+    }
 }

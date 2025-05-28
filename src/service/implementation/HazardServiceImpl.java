@@ -8,6 +8,7 @@ package service.implementation;
 import dao.HazardDao;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 import modal.Hazard;
 import service.HazardService;
 
@@ -72,6 +73,17 @@ public class HazardServiceImpl extends UnicastRemoteObject implements HazardServ
             ex.printStackTrace();   
         }
         return 0;
+    }
+
+    @Override
+    public List<Hazard> findAllHazards() throws RemoteException {
+        try{
+            HazardDao hazardDao = new HazardDao();
+            return hazardDao.findAllHazards();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return null;
     }
     
 }

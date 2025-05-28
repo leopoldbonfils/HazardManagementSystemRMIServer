@@ -153,4 +153,16 @@ public class MeasureDao {
         }
         return 0;
     }
+    
+    public List<Measure> findAllMeasures() {
+      try{
+          Session ss = HibernateUtil.getSessionFactory().openSession();
+          List<Measure>measure = ss.createQuery("SELECT mea FROM Measure mea").list();
+          ss.close();
+          return measure;
+      }catch(Exception ex){
+          ex.printStackTrace();
+      }
+      return null;
+    }
 }

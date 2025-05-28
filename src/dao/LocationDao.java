@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.util.List;
 import modal.Location;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -72,4 +73,16 @@ public class LocationDao {
         return 0;
     
     }  
+    
+    public List<Location> findAllLocations() {
+      try{
+          Session ss = HibernateUtil.getSessionFactory().openSession();
+          List<Location>location = ss.createQuery("SELECT loc FROM Location loc").list();
+          ss.close();
+          return location;
+      }catch(Exception ex){
+          ex.printStackTrace();
+      }
+      return null;
+    }
 }

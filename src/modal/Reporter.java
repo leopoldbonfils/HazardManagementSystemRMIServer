@@ -98,8 +98,4 @@ public class Reporter implements Serializable{
         this.hazards = hazards;
     }
     
-    
-
-   
-    
 }

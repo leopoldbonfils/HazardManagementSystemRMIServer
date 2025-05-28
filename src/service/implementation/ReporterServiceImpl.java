@@ -8,6 +8,7 @@ package service.implementation;
 import dao.ReporterDao;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 import modal.Reporter;
 import service.ReporterService;
 
@@ -69,6 +70,17 @@ public class ReporterServiceImpl extends UnicastRemoteObject implements Reporter
         
         }
         return 0;
+    }
+
+    @Override
+    public List<Reporter> findAllReporters() throws RemoteException {
+        try{
+            ReporterDao reporterDao = new ReporterDao();
+            return reporterDao.findAllReporters();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return null;
     }
     
 }

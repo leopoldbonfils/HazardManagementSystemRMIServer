@@ -8,6 +8,7 @@ package service.implementation;
 import dao.LocationDao;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 import modal.Location;
 import service.LocationService;
 
@@ -67,6 +68,15 @@ public class LocationServiceImpl extends UnicastRemoteObject implements Location
         }
         return 0;
     }
-    
-    
+
+    @Override
+    public List<Location> findAllLocations() throws RemoteException {
+        try{
+            LocationDao locationDao = new LocationDao();
+            return locationDao.findAllLocations();
+        }catch(Exception ex){
+          ex.printStackTrace();
+        }
+        return null;    
+    }
 }
