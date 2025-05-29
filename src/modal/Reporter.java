@@ -97,5 +97,6 @@ public class Reporter implements Serializable{
     public void setHazards(List<Hazard> hazards) {
         this.hazards = hazards;
     }
+   
     
 }

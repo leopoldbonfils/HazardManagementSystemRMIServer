@@ -10,6 +10,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 import modal.Hazard;
+import modal.HazardReporterDTO;
 import service.HazardService;
 
 /**
@@ -84,6 +85,30 @@ public class HazardServiceImpl extends UnicastRemoteObject implements HazardServ
             ex.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public List<HazardReporterDTO> getAllHazardReports() throws RemoteException {
+        
+        try {
+            HazardDao hazardDao = new HazardDao();
+            return hazardDao.getAllHazardReports();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+        
+    }
+
+    @Override
+    public List<HazardReporterDTO> searchHazardReportsByType(String keyword) throws RemoteException {
+         try {
+            HazardDao hazardDao = new HazardDao();
+            return hazardDao.searchHazardReportsByType(keyword);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;   
     }
     
 }

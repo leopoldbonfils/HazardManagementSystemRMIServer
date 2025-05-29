@@ -105,4 +105,6 @@ public class Location implements Serializable{
         this.hazards = hazards;
     }
     
+
+    
 }
