@@ -32,6 +32,31 @@ public class UserDao {
         
         return 0;
     }
+    public boolean confirmUser(String token) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createQuery("FROM User WHERE confirmationToken = :token");
+            query.setParameter("token", token);
+            User user = (User) query.uniqueResult();
+
+            if (user != null) {
+                user.setConfirmed(true);
+                session.update(user);
+                tx.commit();
+                return true;
+            }
+
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return false;
+}
+
     
     public boolean loginUser(String username, String password) {
         Session session = HibernateUtil.getSessionFactory().openSession();

@@ -8,6 +8,7 @@ package service.implementation;
 import dao.UserDao;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.UUID;
 import modal.User;
 import service.UserService;
 
@@ -24,8 +25,19 @@ public class UserServiceImpl extends UnicastRemoteObject implements UserService{
     @Override
     public int registerUser(User userObj) throws RemoteException {
         try{
+            
+            String token = UUID.randomUUID().toString();
+            userObj.setConfirmationToken(token);
+            userObj.setConfirmed(false);
+        
             UserDao userDao = new UserDao();
-            return userDao.registerUser(userObj);
+            int result = userDao.registerUser(userObj);
+
+            if (result == 1) {
+                EmailSender.sendConfirmationEmail(userObj.getEmail(), token);
+            }
+
+            return result;
            
         }catch(Exception ex){
           ex.printStackTrace();
@@ -44,6 +56,17 @@ public class UserServiceImpl extends UnicastRemoteObject implements UserService{
         }
         return false;
         
+    }
+
+    @Override
+    public boolean confirmUser(String token) throws RemoteException {
+       try {
+            UserDao userDao = new UserDao();
+            return userDao.confirmUser(token);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
     
 }

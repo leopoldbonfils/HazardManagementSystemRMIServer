@@ -144,7 +144,7 @@ public class HazardDao {
     return list;
      }
      
-    public List<HazardReporterDTO> searchHazardReportsByType(String keyword) {
+     public List<HazardReporterDTO> searchHazardReportsByType(String keyword) {
         List<HazardReporterDTO> list = new ArrayList<>();
         Session ss = null;
         Transaction tx = null;
@@ -166,7 +166,9 @@ public class HazardDao {
                          "LEFT JOIN measures m ON h.hazard_id = m.hazard_id " +
                          "JOIN location l ON h.location_id = l.location_id " +
                          "JOIN reporter r ON h.reporter_id = r.reporter_id " +
-                         "WHERE LOWER(h.hazard_type) LIKE :keyword";
+                         "WHERE LOWER(h.hazard_type) LIKE :keyword " +
+                         "OR LOWER(l.district) LIKE :keyword " +
+                         "OR LOWER(l.province) LIKE :keyword";
 
             SQLQuery query = ss.createSQLQuery(sql);
             query.setParameter("keyword", "%" + keyword + "%");
@@ -178,14 +180,14 @@ public class HazardDao {
                 String dateReportedStr = (dateReported != null) ? sdf.format(dateReported) : "N/A";
 
                 HazardReporterDTO dto = new HazardReporterDTO(
-                    ((Number) row[0]).intValue(),     // hazard_id
-                    (String) row[1],                  // hazard_type
-                    (String) row[2],                  // severity_level
-                    dateReportedStr,                  // date_reported
-                    row[4] != null ? (String) row[4] : "N/A", // measure_description
-                    (String) row[5],                  // location
-                    (String) row[6],                  // reporter_name
-                    row[7] != null ? (String) row[7] : "N/A"  // measure_status
+                    ((Number) row[0]).intValue(),                // hazard_id
+                    (String) row[1],                             // hazard_type
+                    (String) row[2],                             // severity_level
+                    dateReportedStr,                             // date_reported
+                    row[4] != null ? (String) row[4] : "N/A",     // measure_description
+                    (String) row[5],                             // location
+                    (String) row[6],                             // reporter_name
+                    row[7] != null ? (String) row[7] : "N/A"      // measure_status
                 );
                 list.add(dto);
             }
@@ -198,8 +200,9 @@ public class HazardDao {
             if (ss != null) ss.close();
         }
 
-        return list;
-    }
+    return list;
+}
+
     
      public long countHazards() {
         Session session = HibernateUtil.getSessionFactory().openSession();
