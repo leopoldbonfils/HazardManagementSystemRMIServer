@@ -20,6 +20,7 @@ public interface MeasureService extends Remote{
     Measure search(int measureId) throws RemoteException;
     int deleteMeasure(Measure measureObj) throws RemoteException;
     List<Measure> findAllMeasures() throws RemoteException;
+    long countMeasures() throws RemoteException;
      
     
     

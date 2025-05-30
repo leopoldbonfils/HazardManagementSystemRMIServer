@@ -24,6 +24,7 @@ public interface HazardService extends Remote{
     List<Hazard> findAllHazards() throws RemoteException;
     List<HazardReporterDTO> getAllHazardReports() throws RemoteException;
     List<HazardReporterDTO> searchHazardReportsByType(String keyword) throws RemoteException;
+    long getHazardCount() throws RemoteException;
     
     
 }

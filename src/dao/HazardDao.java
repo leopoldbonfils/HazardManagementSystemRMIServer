@@ -200,4 +200,21 @@ public class HazardDao {
 
         return list;
     }
+    
+     public long countHazards() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        long count = 0;
+        try {
+            tx = session.beginTransaction();
+            count = (Long) session.createQuery("select count(h.id) from Hazard h").uniqueResult();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return count;
+    }
 }

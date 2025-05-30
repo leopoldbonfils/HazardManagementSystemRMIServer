@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HazardManagementSystemRMIServer/src/dao/UserDao.java</file>
             <file>file:/C:/Users/HP/Documents/NetBeansProjects/HazardManagementSystemRMIServer/src/controller/Server.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HazardManagementSystemRMIServer/src/dao/HazardDao.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HazardManagementSystemRMIServer/src/service/implementation/HazardServiceImpl.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HazardManagementSystemRMIServer/src/service/HazardService.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HazardManagementSystemRMIServer/src/modal/User.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HazardManagementSystemRMIServer/src/service/implementation/UserServiceImpl.java</file>
         </group>
     </open-files>
 </project-private>

@@ -32,5 +32,18 @@ public class UserServiceImpl extends UnicastRemoteObject implements UserService{
         }
         return 0;
     }
+
+    @Override
+    public boolean loginUser(String username, String password) throws RemoteException {
+        try{
+            UserDao userDao = new UserDao();
+            return userDao.loginUser(username, password);
+           
+        }catch(Exception ex){
+          ex.printStackTrace();
+        }
+        return false;
+        
+    }
     
 }

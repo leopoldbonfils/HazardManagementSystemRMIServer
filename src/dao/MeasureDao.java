@@ -155,14 +155,32 @@ public class MeasureDao {
     }
     
     public List<Measure> findAllMeasures() {
-      try{
-          Session ss = HibernateUtil.getSessionFactory().openSession();
-          List<Measure>measure = ss.createQuery("SELECT mea FROM Measure mea").list();
-          ss.close();
-          return measure;
-      }catch(Exception ex){
-          ex.printStackTrace();
+        try{
+            Session ss = HibernateUtil.getSessionFactory().openSession();
+            List<Measure>measure = ss.createQuery("SELECT mea FROM Measure mea").list();
+            ss.close();
+            return measure;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return null;
       }
-      return null;
-    }
+    
+    public long countMeasures() { 
+      Session session = HibernateUtil.getSessionFactory().openSession();
+      Transaction tx = null;
+      long count = 0;
+      try {
+          tx = session.beginTransaction();
+         
+          count = (Long) session.createQuery("select count(m.id) from Measure m").uniqueResult();
+          tx.commit();
+      } catch (Exception e) {
+          if (tx != null) tx.rollback();
+          e.printStackTrace();
+      } finally {
+          session.close();
+      }
+      return count;
+   }
 }

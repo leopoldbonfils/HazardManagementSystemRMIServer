@@ -6,6 +6,7 @@
 package dao;
 
 import modal.User;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -32,6 +33,21 @@ public class UserDao {
         return 0;
     }
     
+    public boolean loginUser(String username, String password) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Query query = session.createQuery("FROM User WHERE userName = :username AND password = :password");
+            query.setParameter("username", username);
+            query.setParameter("password", password);
+            User user = (User) query.uniqueResult();
+            return user != null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return false;
+    }
     
     
 }

@@ -110,5 +110,16 @@ public class HazardServiceImpl extends UnicastRemoteObject implements HazardServ
         }
         return null;   
     }
+
+    @Override
+    public long getHazardCount() throws RemoteException {
+        try {
+            HazardDao hazardDao = new HazardDao();
+            return hazardDao.countHazards();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0; 
+    }
     
 }

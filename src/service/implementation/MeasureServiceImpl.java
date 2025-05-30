@@ -120,5 +120,18 @@ public class MeasureServiceImpl extends UnicastRemoteObject implements MeasureSe
         }
         return null;
     }
+
+    @Override
+    public long countMeasures() throws RemoteException {
+         try{
+            MeasureDao measureDao = new MeasureDao();
+            return measureDao.countMeasures();
+            
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return 0;
+       
+    }
     
 }
