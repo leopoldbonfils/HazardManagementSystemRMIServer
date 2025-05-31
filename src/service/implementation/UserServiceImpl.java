@@ -1,72 +1,71 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package service.implementation;
 
 import dao.UserDao;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.UUID;
+import java.util.Random;
 import modal.User;
+import service.EmailService;
 import service.UserService;
+import util.OTPGenerator;
 
-/**
- *
- * @author HP
- */
-public class UserServiceImpl extends UnicastRemoteObject implements UserService{
-    
-    public UserServiceImpl() throws Exception{
-      super();
+public class UserServiceImpl extends UnicastRemoteObject implements UserService {
+
+    public UserServiceImpl() throws Exception {
+        super();
     }
+    private EmailService emailService = new EmailServiceImpl();
 
     @Override
     public int registerUser(User userObj) throws RemoteException {
-        try{
+        try {
             
-            String token = UUID.randomUUID().toString();
-            userObj.setConfirmationToken(token);
+            String otp = OTPGenerator.generateOTP(6);
+            userObj.setConfirmationToken(otp);
             userObj.setConfirmed(false);
-        
+
             UserDao userDao = new UserDao();
             int result = userDao.registerUser(userObj);
 
-            if (result == 1) {
-                EmailSender.sendConfirmationEmail(userObj.getEmail(), token);
+           if (result > 0) {
+               
+                emailService.sendOTP(userObj.getEmail(), userObj.getConfirmationToken());
             }
 
             return result;
-           
-        }catch(Exception ex){
-          ex.printStackTrace();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return 0;
     }
 
     @Override
     public boolean loginUser(String username, String password) throws RemoteException {
-        try{
+        try {
             UserDao userDao = new UserDao();
             return userDao.loginUser(username, password);
-           
-        }catch(Exception ex){
-          ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return false;
-        
     }
 
     @Override
     public boolean confirmUser(String token) throws RemoteException {
-       try {
+        try {
             UserDao userDao = new UserDao();
-            return userDao.confirmUser(token);
+            return userDao.confirmUser(token); 
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
+
     
+    private String generateOTP() {
+        Random random = new Random();
+        int otp = 100000 + random.nextInt(900000); 
+        return String.valueOf(otp);
+    }
 }

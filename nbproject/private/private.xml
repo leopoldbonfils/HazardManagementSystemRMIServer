@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/HP/Documents/NetBeansProjects/HazardManagementSystemRMIServer/src/dao/UserDao.java</file>
             <file>file:/C:/Users/HP/Documents/NetBeansProjects/HazardManagementSystemRMIServer/src/controller/Server.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HazardManagementSystemRMIServer/src/modal/Hazard.java</file>
             <file>file:/C:/Users/HP/Documents/NetBeansProjects/HazardManagementSystemRMIServer/src/modal/User.java</file>
             <file>file:/C:/Users/HP/Documents/NetBeansProjects/HazardManagementSystemRMIServer/src/service/implementation/UserServiceImpl.java</file>
         </group>

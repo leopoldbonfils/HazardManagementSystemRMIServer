@@ -22,6 +22,7 @@ public class UserDao {
         try{
            Session ss= HibernateUtil.getSessionFactory().openSession();
            Transaction tr=ss.beginTransaction();
+            
            ss.save(userObj);
            tr.commit();
            ss.close();
@@ -32,19 +33,28 @@ public class UserDao {
         
         return 0;
     }
+    
     public boolean confirmUser(String token) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
+
         try {
             tx = session.beginTransaction();
+
             Query query = session.createQuery("FROM User WHERE confirmationToken = :token");
             query.setParameter("token", token);
             User user = (User) query.uniqueResult();
 
             if (user != null) {
+                if (user.isConfirmed()) {
+                    System.out.println("User is already confirmed.");
+                    return false;
+                }
+
                 user.setConfirmed(true);
                 session.update(user);
                 tx.commit();
+                System.out.println("User confirmed successfully.");
                 return true;
             }
 
@@ -54,8 +64,9 @@ public class UserDao {
         } finally {
             session.close();
         }
+
         return false;
-}
+    }
 
     
     public boolean loginUser(String username, String password) {
